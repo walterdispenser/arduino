@@ -18,13 +18,13 @@ struct Tag {
 };
 
 const Tag allowedTags[] = {
-  {"8A6F951A", "Admin Card", "Admin"},
+  {"8A6F951A", "Admin Card", "Admin"}, // admin card, no colored tag
   {"5DC5B001", "Raine Aspe", "Student"},
-  {"0BD5B101", "John Walter", "Student"}, //red
-  {"627BB701", "Thomas Manzanilla", "Student"}, //purple
-  {"2E7A0D02", "Dawn Marbida", "Student"},
-  {"5A6B4116", "Shania Ante", "Student"}, //yellow
-  {"17DF0D02", "Marean Ante", "Student"} //orange
+  {"0BD5B101", "John Walter", "Student"}, // red
+  {"627BB701", "Thomas Manzanilla", "Student"}, // purple
+  {"2E7A0D02", "Dawn Marbida", "Student"}, // violet
+  {"5A6B4116", "Shania Ante", "Student"}, // yellow
+  {"17DF0D02", "Marean Ante", "Student"} // orange
 };
 const byte NUM_TAGS = sizeof(allowedTags) / sizeof(allowedTags[0]);
 
