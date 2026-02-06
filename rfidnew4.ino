@@ -3,18 +3,14 @@
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
 
-// -------------------------------
-// PIN DEFINITIONS
-// -------------------------------
+// pin definitions
 #define RST_PIN 9
 #define SS_PIN 10
 
 MFRC522 rfid(SS_PIN, RST_PIN);
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-// -------------------------------
-// TAG DATABASE
-// -------------------------------
+// tag db
 struct Tag {
   const char *uid;
   const char *name;
@@ -32,19 +28,16 @@ const Tag allowedTags[] = {
 };
 const byte NUM_TAGS = sizeof(allowedTags) / sizeof(allowedTags[0]);
 
-// -------------------------------
-// GLOBALS
-// -------------------------------
+// global vars
 char tagID[16]; // holds scanned UID
 
-// -------------------------------
-// INITIALIZATION
-// -------------------------------
+
+// init function
 void setup() {
   Serial.begin(9600);
   SPI.begin();
   rfid.PCD_Init();
-  delay(100); // small delay after init
+  delay(100);
 
   lcd.init();
   lcd.backlight();
@@ -56,9 +49,7 @@ void setup() {
   Serial.println(F("System ready. Waiting for card..."));
 }
 
-// -------------------------------
-// READ RFID UID
-// -------------------------------
+// reads rfid uid
 bool readCard() {
   if (!rfid.PICC_IsNewCardPresent() || !rfid.PICC_ReadCardSerial())
     return false;
@@ -76,9 +67,7 @@ bool readCard() {
   return true;
 }
 
-// -------------------------------
-// FIND TAG INFO
-// -------------------------------
+// finds tag info
 const Tag* findTag(const char *uid) {
   for (byte i = 0; i < NUM_TAGS; i++) {
     if (strcasecmp(uid, allowedTags[i].uid) == 0)
@@ -86,10 +75,7 @@ const Tag* findTag(const char *uid) {
   }
   return nullptr;
 }
-
-// -------------------------------
-// LCD MESSAGE HELPER
-// -------------------------------
+ // prints message to lcd
 void showLCD(const char *line1, const char *line2, unsigned long duration = 3000) {
   lcd.clear();
   lcd.print(line1);
@@ -100,9 +86,7 @@ void showLCD(const char *line1, const char *line2, unsigned long duration = 3000
   lcd.print("Scan your card");
 }
 
-// -------------------------------
-// MAIN LOOP
-// -------------------------------
+// main loop
 void loop() {
   if (!readCard()) return;
 
